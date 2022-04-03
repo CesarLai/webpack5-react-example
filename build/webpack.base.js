@@ -14,19 +14,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(jsx?|tsx?)$/,
         include: ENTRY_PATH,
         exclude: path.resolve(CONTEXT_PATH, 'node_modules'),
         loader: 'babel-loader'
-      },
-      {
-        test: /\.tsx?$/,
-        include: ENTRY_PATH,
-        exclude: path.resolve(CONTEXT_PATH, 'node_modules'),
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true
-        }
       },
       {
         test: /\.(css|less)$/,

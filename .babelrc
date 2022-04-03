@@ -1,6 +1,5 @@
 {
   "presets": [
-    "@babel/preset-react",
     [
       "@babel/preset-env",
       {
@@ -11,7 +10,9 @@
           "node": "current"
         }
       }
-    ]
+    ],
+    "@babel/preset-react",
+    "@babel/preset-typescript"
   ],
   "plugins": [
     "@babel/plugin-transform-runtime",
