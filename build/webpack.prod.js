@@ -12,7 +12,7 @@ const OUTPUT_PATH = path.resolve(CONTEXT_PATH, 'dist')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
-  entry: './src/entry.js',
+  entry: './src/entry.tsx',
   output: {
     publicPath: '/',
     path: OUTPUT_PATH,

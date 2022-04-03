@@ -10,7 +10,7 @@ const OUTPUT_PATH = path.resolve(CONTEXT_PATH, 'dist')
 
 module.exports = merge(baseConfig, {
   mode: 'development',
-  entry: './src/entry.js',
+  entry: './src/entry.tsx',
   output: {
     path: OUTPUT_PATH,
     filename: '[name].bundle.js'

@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const CONTEXT_PATH = path.resolve(__dirname, '../')
 const ENTRY_PATH = path.resolve(CONTEXT_PATH, 'src')
@@ -13,10 +14,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js(x)?$/,
+        test: /\.jsx?$/,
         include: ENTRY_PATH,
         exclude: path.resolve(CONTEXT_PATH, 'node_modules'),
         loader: 'babel-loader'
+      },
+      {
+        test: /\.tsx?$/,
+        include: ENTRY_PATH,
+        exclude: path.resolve(CONTEXT_PATH, 'node_modules'),
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true
+        }
       },
       {
         test: /\.(css|less)$/,
@@ -68,13 +78,17 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: 'public/favicon.ico', to: './' }]
+    }),
+    new TsconfigPathsPlugin({
+      configFile: path.resolve(CONTEXT_PATH, 'tsconfig.json')
     })
   ],
   resolve: {
     alias: {
       '@': ENTRY_PATH
     },
-    modules: [ENTRY_PATH, 'node_modules']
+    modules: [ENTRY_PATH, 'node_modules'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   node: {
     global: true,
