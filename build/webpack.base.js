@@ -79,7 +79,13 @@ module.exports = {
       '@': ENTRY_PATH
     },
     modules: [ENTRY_PATH, 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    fallback: {
+      path: require.resolve('path-browserify'),
+      stream: require.resolve('stream-browserify'),
+      crypto: require.resolve('crypto-browserify'),
+      buffer: require.resolve('buffer/')
+    }
   },
   node: {
     global: true,
