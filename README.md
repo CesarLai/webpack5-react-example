@@ -1,4 +1,4 @@
-# webpack5-react-example
+# webpack5-react-template
 
 基于 webpack 5 实现的 React App 模板。
 
