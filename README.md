@@ -79,6 +79,86 @@ module.exports = {
 }
 ```
 
+### Node process polyfill
+
+**v4.x**
+
+在 webpack 4 中，可以使用 Node 的 `process` 变量。
+
+```javascript
+process.env.NODE_ENV // development
+```
+
+**v5.x**
+
+在 webpack 5 中，移除了对 process 变量的 polyfill ，直接使用 process 变量会抛出错误
+
+```javascript
+process.env.NODE_ENV // throw Error
+```
+
+```bash
+App.tsxx:5 Uncaught ReferenceError: process is not defined
+    at App (App.tsxx:5:5)
+    at renderWithHooks (react-dom.development.jss:14985:1)
+    at mountIndeterminateComponent (react-dom.development.jss:17811:1)
+    at beginWork (react-dom.development.jss:19049:1)
+    at HTMLUnknownElement.callCallback (react-dom.development.jss:3945:1)
+    at Object.invokeGuardedCallbackDev (react-dom.development.jss:3994:1)
+    at invokeGuardedCallback (react-dom.development.jss:4056:1)
+    at beginWork$1 (react-dom.development.jss:23964:1)
+    at performUnitOfWork (react-dom.development.jss:22776:1)
+    at workLoopSync (react-dom.development.jss:22707:1)
+```
+
+为了对 webpack 5 进行兼容，可以在 webpack 通过 `ProvidePlugin` 导入 `process/browser` 模块
+
+```bash
+npm install -D process
+```
+
+```javascript
+/**
+ * webpack.config.js
+ */
+
+const webpack = require('webpack')
+
+module.exports = {
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    })
+  ]
+}
+```
+
+如果需要定义环境变量，可以使用 `DefinePlugin` 或 `EnvironmentPlugin`。
+
+如果需要读取 `.env` 文件中定义的环境变量，可以使用 `dotenv-webpack`
+
+```bash
+npm i -D dotenv-webpack
+```
+
+```javascript
+/**
+ * webpack.config.js
+ */
+
+const Dotenv = require('dotenv-webpack')
+
+module.exports = {
+  plugins: [
+    new Dotenv({
+      path: path.resolve(CONTEXT_PATH, '.env'),
+      // webpack 5 should skip stub
+      ignoreStub: true
+    })
+  ]
+}
+```
+
 ### webpack.NamedModulesPlugin
 
 **v4.x**
