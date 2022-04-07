@@ -2,14 +2,16 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
+const Dotenv = require('dotenv-webpack')
 
 const baseConfig = require('./webpack.base')
 
 const CONTEXT_PATH = path.resolve(__dirname, '../')
 const OUTPUT_PATH = path.resolve(CONTEXT_PATH, 'dist')
+const CONFIG_ENV = 'development'
 
 module.exports = merge(baseConfig, {
-  mode: 'development',
+  mode: CONFIG_ENV,
   entry: './src/entry.tsx',
   output: {
     path: OUTPUT_PATH,
@@ -22,8 +24,15 @@ module.exports = merge(baseConfig, {
       chunkFilename: '[id].[contenthash:8].css',
       ignoreOrder: false
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+    new Dotenv({
+      path: path.resolve(CONTEXT_PATH, '.env'),
+      // webpack 5 should skip stub
+      ignoreStub: true
+    }),
+    new Dotenv({
+      path: path.resolve(CONTEXT_PATH, `.env.${CONFIG_ENV}`),
+      // webpack 5 should skip stub
+      ignoreStub: true
     })
   ],
   devtool: 'inline-source-map',

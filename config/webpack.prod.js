@@ -2,16 +2,17 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const webpack = require('webpack')
 const { merge } = require('webpack-merge')
+const Dotenv = require('dotenv-webpack')
 
 const baseConfig = require('./webpack.base')
 
 const CONTEXT_PATH = path.resolve(__dirname, '../')
 const OUTPUT_PATH = path.resolve(CONTEXT_PATH, 'dist')
+const CONFIG_ENV = 'production'
 
 module.exports = merge(baseConfig, {
-  mode: 'production',
+  mode: CONFIG_ENV,
   entry: './src/entry.tsx',
   output: {
     publicPath: '/',
@@ -20,8 +21,15 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+    new Dotenv({
+      path: path.resolve(CONTEXT_PATH, '.env'),
+      // webpack 5 should skip stub
+      ignoreStub: true
+    }),
+    new Dotenv({
+      path: path.resolve(CONTEXT_PATH, `.env.${CONFIG_ENV}`),
+      // webpack 5 should skip stub
+      ignoreStub: true
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',
