@@ -38,8 +38,7 @@ module.exports = {
                 localIdentName: '[path][name]__[local]--[hash:base64:5]',
                 localIdentContext: ENTRY_PATH,
                 localIdentHashSalt: 'cesarlai',
-                namedExport: true,
-                exportLocalsConvention: 'camelCase',
+                exportLocalsConvention: 'camelCaseOnly',
                 exportOnlyLocals: false
               }
             }
