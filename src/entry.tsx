@@ -1,8 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import App from './App'
 
 import '@/styles/global.css'
 
-ReactDOM.render(<App />, document.getElementById('cesarlai-app'))
+createRoot(document.getElementById('cesarlai-app')!).render(<App />)
