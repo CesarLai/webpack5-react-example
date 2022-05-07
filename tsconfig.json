@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
@@ -9,20 +9,39 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "lib": ["dom", "es6", "es2020"],
-    "allowJs": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es6",
+      "es2020"
+    ],
+    "allowJs": false,
     "esModuleInterop": true,
+    "importHelpers": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-    "types": ["node", "webpack-env"],
+    "types": [
+      "node",
+      "webpack-env"
+    ],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "global.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
