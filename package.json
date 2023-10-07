@@ -11,6 +11,8 @@
     "build": "webpack --config ./config/webpack.prod.js"
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "7.23.1",
+    "core-js": "3.6.5",
     "react": "18.1.0",
     "react-dom": "18.1.0"
   },
